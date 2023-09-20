@@ -4,41 +4,70 @@
     {
         static void Main(string[] args)
         {
-            int i; //первое задание
+         //Первое задание
+
+            int n; 
             Console.WriteLine("Первое задание");
-            for (i = 0; i <= 70; i += 2)
+            for (n = 0; n <= 70; n += 2)
             {
-                Console.WriteLine(i);
+                Console.WriteLine(n);
             }
-            //второе задание
+            Console.WriteLine("Нажмите Enter для продолжения");
+            Console.ReadLine();
+
+
+         //Второе задание
+
             Console.WriteLine("Второе задание");
             char a;
             for (a = 'd'; a <= 'z'; a++)
             {
                 Console.WriteLine(a);
             }
-            //третье задание
+            Console.WriteLine("Нажмите Enter для продолжения");
+            Console.ReadLine();
+
+
+         //Третье задание
+
             Console.WriteLine("Третье задание");
             string h = "#####";
-
+            for (int c = 0; c < 5; c++)
             {
-                for (int c = 0; c < 5; c++)
-                {
-                    Console.WriteLine(h);
-                }
-
-                int e=0;//Четвёртное задание
-                Console.WriteLine("Четвёртное задание");
-                for (e = 0; e <= 200; e++)
-                    if (e%7== 0)
-                {
-                    Console.Write(e + " ");
-                     e++;
-                }
-                Console.WriteLine("\nКоличество чисел, кратных 7: "+e) ;
-
+                Console.WriteLine(h);
             }
+            Console.WriteLine("Нажмите Enter для продолжения");
+            Console.ReadLine();
 
+
+         //Четвёртое задание
+
+             int e = 0;
+             int q = 0;
+             Console.WriteLine("Четвёртное задание");
+             for (e = 0; e <= 200; e++)
+             if (e%7== 0)
+             {
+                 Console.Write(e + " ");
+                 q++;
+             }
+             Console.WriteLine("\nКоличество чисел, кратных 7: " + q ) ;
+             Console.WriteLine("Нажмите Enter для продолжения");
+             Console.ReadLine();
+
+
+         //Пятое задание
+             int i = 2;
+             int j = 40;
+
+             while (Math.Abs(i - j) > 25)
+             {
+                Console.WriteLine($"i = {i}, j = {j}");
+                i++;
+                j--;
+             }
+
+             Console.WriteLine("Все задания выполнены") ;
         }
     }
 }
