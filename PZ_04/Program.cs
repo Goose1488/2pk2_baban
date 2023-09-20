@@ -20,9 +20,9 @@
 
             Console.WriteLine("Второе задание");
             char a;
-            for (a = 'd'; a <= 'z'; a++)
+            for (a = 'd'; a <= 'i'; a++)
             {
-                Console.WriteLine(a);
+                Console.Write(a + " ");
             }
             Console.WriteLine("Нажмите Enter для продолжения");
             Console.ReadLine();
