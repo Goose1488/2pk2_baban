@@ -9,14 +9,14 @@
         static int playerX = mapSize / 2;
 
         static byte maxEnemies = 5; // количество врагов
-        static byte maxBuffs = 5; // количество усилений
+        static byte maxBeers = 5; // количество усилений
         static byte maxHealthAids = 5; // количество аптечек
 
         static byte playerDamage = 5;
         static int playerHP = 15;
-        static int BuffDuration = 10;
-        static bool BuffActive = false;
-        static int BuffRemainingSteps = 0;
+        static int BeerDuration = 10;
+        static bool BeerActive = false;
+        static int BeerRemainingSteps = 0;
 
         static int stepsCount = 0;  // для подсчета шагов
         static int totalEnemies = 0;
@@ -55,15 +55,17 @@
                 }
             }
 
-            while (maxBuffs > 0)
+            while (maxBeers > 0)
             {
                 x = random.Next(0, mapSize);
                 y = random.Next(0, mapSize);
 
                 if (map[x, y] == '_')
                 {
+                    Console.ForegroundColor = ConsoleColor.Green; 
                     map[x, y] = 'B';
-                    maxBuffs--;
+                    maxBeers--;
+                    Console.ResetColor();
                 }
             }
 
@@ -135,7 +137,7 @@
                 }
                 else if (map[playerX, playerY] == 'B')
                 {
-                    UseBuff();
+                    UseBeer();
                 }
 
                 map[playerOldX, playerOldY] = '_';
@@ -192,14 +194,14 @@
 
         static void Fight()
         {
-            if (BuffActive)
+            if (BeerActive)
             {
                 playerHP += 4;
-                BuffRemainingSteps--;
+                BeerRemainingSteps--;
 
-                if (BuffRemainingSteps == 0)
+                if (BeerRemainingSteps == 0)
                 {
-                    BuffActive = false;
+                    BeerActive = false;
 
                 }
             }
@@ -208,7 +210,7 @@
 
             if (playerHP <= 0)
             {
-                Console.WriteLine($"Игра окончена! Вы продержались {stepsCount} шагов. Осталось врагов: {totalEnemies}");
+                Console.WriteLine($"Вы проиграли! Вы продержались {stepsCount} шагов. Осталось врагов: {totalEnemies}");
                 Environment.Exit(0);
             }
 
@@ -227,11 +229,11 @@
             Console.WriteLine($"\nВы использовали аптечку. Здоровье увеличено до {playerHP}.");
         }
 
-        static void UseBuff()
+        static void UseBeer()
         {
-            BuffActive = true;
-            BuffRemainingSteps = BuffDuration;
-            Console.WriteLine($"\nВы использовали бафф. Получаемый урон снижен до 1 на следующие {BuffDuration} шагов.");
+            BeerActive = true;
+            BeerRemainingSteps = BeerDuration;
+            Console.WriteLine($"\nВы бахнули Балтику 9. Получаемый урон снижен до 1 на следующие {BeerDuration} шагов.");
         }
 
         static void DisplayStats()
@@ -260,8 +262,6 @@
 // Персонаж не может выйти за пределы карты
 // + 1
 // Присутствуют информационные сообщения пользователю:
-// стартовое окно, предложение сохраниться, вывод результата –
-// проигрыш и выигрыш.
 // Дополнительные баллы:
 //                      6 баллов
 // - 2
@@ -269,6 +269,6 @@
 // - 2
 // Присутствует псевдоанимация боя (сменяющиеся символы с
 // небольшой задержкой в ячейке во время обмена ударами)
-// -
-// 2 Появление босса(с повышенными характеристиками) после
+// - 2
+// Появление босса(с повышенными характеристиками) после
 // очистки карты
