@@ -8,12 +8,12 @@
         static int playerY = mapSize / 2;
         static int playerX = mapSize / 2;
 
-        static byte maxEnemies = 5; // количество врагов
-        static byte maxBeers = 5; // количество усилений
+        static byte maxEnemies = 10; // количество врагов
+        static byte maxBeers = 1; // количество усилений
         static byte maxHealthAids = 5; // количество аптечек
 
-        static byte playerDamage = 5;
-        static int playerHP = 15;
+        static byte playerDamage = 5;  // пока не используется
+        static int playerHP = 1;
         static int BeerDuration = 10;
         static bool BeerActive = false;
         static int BeerRemainingSteps = 0;
@@ -149,7 +149,7 @@
         }
         static void GameSave()
         {
-            Console.WriteLine("Сохранить игру? (Y/N)");
+            Console.WriteLine("\nСохранить игру? (Y/N)");
             ConsoleKeyInfo saveKey = Console.ReadKey(true);
 
             if (saveKey.Key == ConsoleKey.Y)
@@ -196,7 +196,7 @@
         {
             if (BeerActive)
             {
-                playerHP += 4;
+                playerHP += 1;
                 BeerRemainingSteps--;
 
                 if (BeerRemainingSteps == 0)
@@ -210,30 +210,34 @@
 
             if (playerHP <= 0)
             {
-                Console.WriteLine($"Вы проиграли! Вы продержались {stepsCount} шагов. Осталось врагов: {totalEnemies}");
+                Console.Clear();
+                Console.WriteLine($"\n\n\n\n\n\n\n\n\n\t\tВы проиграли! Вы продержались {stepsCount} шагов. Осталось врагов: {totalEnemies}"); // SetCursorPosition для джунов
+                Console.ReadLine();
                 Environment.Exit(0);
             }
 
-            totalEnemies--;
+            totalEnemies--;                                     
 
             if (totalEnemies == 0)
             {
-                Console.WriteLine($"Поздравляю! Вы победили всех врагов и прошли игру за {stepsCount} шагов.");
+                Console.WriteLine($"\n\n\n\n\n\n\n\n\n\t\tПоздравляю! Вы победили всех врагов и прошли игру за {stepsCount} шагов.");
+                Console.ReadLine();
                 Environment.Exit(0);
             }
         }
 
         static void Healing()
         {
-            playerHP = Math.Min(15, playerHP + 5); // Восстановление здоровья, но не больше максимума
-            Console.WriteLine($"\nВы использовали аптечку. Здоровье увеличено до {playerHP}.");
+            playerHP = Math.Min(15, playerHP + 5); // Восстановление здоровья, не больше максимума
+            Console.WriteLine($"\nВы использовали аптечку. Здоровье увеличено до {playerHP} единиц.                                   ");  // Пробелы чтобы часть сообщения о использовании пива не торчала справа
+            Console.WriteLine("\n");                                                                                                       
         }
 
         static void UseBeer()
         {
             BeerActive = true;
             BeerRemainingSteps = BeerDuration;
-            Console.WriteLine($"\nВы бахнули Балтику 9. Получаемый урон снижен до 1 на следующие {BeerDuration} шагов.");
+            Console.WriteLine($"\nВы бахнули Балтику 9. Получаемый урон снижен на 1."); 
         }
 
         static void DisplayStats()
