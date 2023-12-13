@@ -10,16 +10,17 @@
 
         static byte maxEnemies = 10; // количество врагов
         static byte maxBeers = 1; // количество усилений
-        static byte maxHealthAids = 5; // количество аптечек
+        static byte maxHealthAids = 6; // количество аптечек
 
-        static byte playerDamage = 5;  // пока не используется
-        static int playerHP = 1;
+        static byte Damage = 5;  // пока не используется
+        static int playerHP = 20;
         static int BeerDuration = 10;
         static bool BeerActive = false;
         static int BeerRemainingSteps = 0;
 
         static int stepsCount = 0;  // для подсчета шагов
         static int totalEnemies = 0;
+        static int stepPlayer = 0;
 
         static void Main(string[] args)
         {
@@ -139,6 +140,10 @@
                 {
                     UseBeer();
                 }
+                else if (map[playerX, playerY] == 'S')
+                {
+                    Fight();
+                }
 
                 map[playerOldX, playerOldY] = '_';
                 map[playerX, playerY] = 'P';
@@ -198,29 +203,30 @@
             {
                 playerHP += 1;
                 BeerRemainingSteps--;
-
-                if (BeerRemainingSteps == 0)
-                {
-                    BeerActive = false;
-
-                }
             }
-            playerHP -= 5;
+            playerHP -= Damage;
 
 
             if (playerHP <= 0)
             {
                 Console.Clear();
-                Console.WriteLine($"\n\n\n\n\n\n\n\n\n\t\tВы проиграли! Вы продержались {stepsCount} шагов. Осталось врагов: {totalEnemies}"); // SetCursorPosition для джунов
+                Console.WriteLine($"\n\n\n\n\n\n\n\n\n\t\tВы проиграли! Вы продержались {stepsCount} шагов. Осталось врагов: {totalEnemies}"); // SetCursorPosition для джунов 
                 Console.ReadLine();
                 Environment.Exit(0);
             }
 
-            totalEnemies--;                                     
+            totalEnemies--;
 
             if (totalEnemies == 0)
             {
-                Console.WriteLine($"\n\n\n\n\n\n\n\n\n\t\tПоздравляю! Вы победили всех врагов и прошли игру за {stepsCount} шагов.");
+                map[mapSize / 2, mapSize / 2] = 'S';
+                Damage = 10;
+            }
+
+            if (totalEnemies == -1)
+            {
+                Console.Clear();
+                Console.WriteLine($"\n\n\n\n\n\n\n\n\n\t\tПоздравляю! Вы убили босса и прошли игру за {stepsCount} шагов.");
                 Console.ReadLine();
                 Environment.Exit(0);
             }
@@ -228,9 +234,9 @@
 
         static void Healing()
         {
-            playerHP = Math.Min(15, playerHP + 5); // Восстановление здоровья, не больше максимума
+            playerHP = Math.Min(20, playerHP + 5); // Восстановление здоровья, не больше максимума
             Console.WriteLine($"\nВы использовали аптечку. Здоровье увеличено до {playerHP} единиц.                                   ");  // Пробелы чтобы часть сообщения о использовании пива не торчала справа
-            Console.WriteLine("\n");                                                                                                       
+            Console.WriteLine("");                                                                                                       
         }
 
         static void UseBeer()
@@ -273,6 +279,6 @@
 // - 2
 // Присутствует псевдоанимация боя (сменяющиеся символы с
 // небольшой задержкой в ячейке во время обмена ударами)
-// - 2
+// + 2
 // Появление босса(с повышенными характеристиками) после
 // очистки карты
